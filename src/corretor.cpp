@@ -41,6 +41,15 @@ Corretor::~Corretor()
 {
     dic.close();
     ent.close();
+    for (auto &&i : certas)
+    {
+        certas.erase(i);
+    }
+    for (auto &&i : erradas)
+    {
+        erradas.erase(i);
+    }       
+    
 }
 
 void Corretor::run()
@@ -54,6 +63,7 @@ void Corretor::run()
             if (cword != "")
             {
                 cword = cword.substr(0, cword.size() - 1);
+                cword = palavra(cword);
                 certas.insert(cword);
             }
         }
@@ -91,24 +101,31 @@ void Corretor::run()
     {
         std::cout << "Erro na abertura de arquivo.";
     }
-
-    for (auto &&i : erradas)
-    {
-        cout << i << endl;
-    }
 }
 
 void Corretor::corrigir()
 {
-    std::vector<std::string> sugs;
     for (auto &&i : erradas)
     {
+        std::map<int, std::string> sugs;
         for (auto &&j : certas)
         {
-            if (levenshtein(i, j) < 3)
+            int x = levenshtein(i, j);
+            if (x < 4)
             {
-                
+                sugs.insert(std::make_pair(x, j));
             }
+        }
+        std::cout << i << ": " << std::endl;
+        int fim = 0;
+        for (auto &&elem : sugs)
+        {
+            if (fim >= 5)
+            {
+                break;
+            }
+            std::cout << " -" << elem.second << std::endl;
+            ++fim;
         }
     }
 }

@@ -4,7 +4,8 @@
 #include <string>
 #include <sstream>
 #include <unordered_set>
-#include <vector>
+#include <map>
+#include <queue>
 #include "levenshtein.hpp"
 
 class Corretor
