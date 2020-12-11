@@ -107,7 +107,7 @@ void Corretor::corrigir()
 {
     for (auto &&i : erradas)
     {
-        std::map<int, std::string> sugs;
+        std::multimap<int,std::string> sugs;
         for (auto &&j : certas)
         {
             int x = levenshtein(i, j);
@@ -124,7 +124,7 @@ void Corretor::corrigir()
             {
                 break;
             }
-            std::cout << " -" << elem.second << std::endl;
+            std::cout<< " -" << elem.second << std::endl;
             ++fim;
         }
     }
